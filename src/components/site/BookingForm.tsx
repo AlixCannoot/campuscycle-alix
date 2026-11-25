@@ -31,6 +31,8 @@ import type { Repair } from '@/payload-types'
 import type { BookingField, BookingResult, BookingValues } from '@/tasks/book-slot/createBooking'
 import { saveBooking } from '@/tasks/book-slot/saveBooking'
 import { typedValues } from '@/tasks/book-slot/typedValues'
+import { formatPrice } from '@/lib/format'
+
 
 type BookingFormProps = {
   // The clinic's slug: the server checks that the chosen time belongs to this clinic.
@@ -84,7 +86,7 @@ function RepairChoice({ repairs }: { repairs: BookingFormProps['repairs'] }) {
         Repairs <span className="font-normal text-ink-soft">(optional)</span>
       </legend>
       {repairs.map((repair) => {
-        const label = repair.name
+        const label = repair.name + ', ' + formatPrice(repair.price)
         return (
           <label key={repair.id} className="flex min-h-11 items-center gap-3">
             <input
